@@ -40,9 +40,10 @@ function wp_geo_filter_IP() {
     $ref = $_SERVER['HTTP_REFERER'];
     if(strstr($ref, "google.") || strstr($ref, "yandex")) {
         $ip = $_SERVER['REMOTE_ADDR'];
-        $ip_data = @json_decode(file_get_contents("https://www.iplocate.io/api/lookup/" . $ip));
+        //$ip_data = @json_decode(file_get_contents("http://api.sypexgeo.net/<PREMIUM_KEY>/json/" . $ip));
+        $ip_data = @json_decode(file_get_contents("http://api.sypexgeo.net/json/" . $ip));
 
-        if ($ip_data->country_code == 'RU') {
+        if ($ip_data->country->iso == 'RU') {
             setcookie("xTestCookie", 1, $cookie_expire, "/");
             return true;
         }
